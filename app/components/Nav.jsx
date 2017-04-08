@@ -21,7 +21,7 @@ var Nav = React.createClass({
                                 activeClassName="active"
                                 activeStyle={{
                                 fontWeight: 'bold'
-                            }}>Get Weather</IndexLink>
+                            }}>Weather</IndexLink>
                         </li>
                         <li>
                             <Link
