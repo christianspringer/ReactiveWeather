@@ -3,7 +3,7 @@ var React = require('react');
 var About = (props) => {
     return (
         <div>
-            <h1 className='text-center'>About</h1>
+            <h1 className='text-center page-title'>About</h1>
             <p>
                 Reactive Weather is my first reactjs endeavor. I created it while following
                 along with a Udemy course taught by
