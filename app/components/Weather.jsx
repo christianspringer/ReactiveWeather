@@ -4,38 +4,30 @@ var WeatherMessage = require('WeatherMessage');
 var openWeatherMap = require('openWeatherMap')
 
 var Weather = React.createClass({
-    getInitialState: function(){
-        return {
-            isLoading: false
-        }
+    getInitialState: function () {
+        return {isLoading: false}
     },
-    handleSearch: function(location){
+    handleSearch: function (location) {
         var that = this;
 
-        this.setState({
-            isLoading:true
-        });
+        this.setState({isLoading: true, errorMessage: undefined});
 
-        openWeatherMap.getTemp(location).then(function (temp){
-            that.setState({
-                location: location,
-                temp: temp,
-                isLoading: false
+        openWeatherMap
+            .getTemp(location)
+            .then(function (temp) {
+                that.setState({location: location, temp: temp, isLoading: false});
+            }, function (e) {
+                that.setState({isLoading: false, errorMessage: e.message});
+                alert(e);
             });
-        }, function (errorMessage) {
-            that.setState({
-                isLoading: false
-            });
-            alert(errorMessage);
-        });
     },
     render: function () {
         var {temp, location, isLoading} = this.state;
 
-        function  renderMessage(){
-            if (isLoading){
+        function renderMessage() {
+            if (isLoading) {
                 return <h3 className="text-center">Fetching Weather...</h3>
-            } else if (temp && location){
+            } else if (temp && location) {
                 return <WeatherMessage location={location} temp={temp}/>
             }
         }
@@ -43,15 +35,12 @@ var Weather = React.createClass({
         return (
             <div>
                 <h3 className="text-center">Get Temperature</h3>
-                <WeatherForm onSearch={this.handleSearch}/>
-                {renderMessage()}
+                <WeatherForm onSearch={this.handleSearch}/> {renderMessage()}
             </div>
         )
     }
 });
 
 module.exports = Weather;
-
-
 
 ////"inline-source-map" or "eval-source-map" instead.
